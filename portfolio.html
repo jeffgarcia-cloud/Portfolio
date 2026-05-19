@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jefferson Garcia — Marketing Strategist · Los Angeles</title>
+<meta name="description" content="Jefferson Garcia — Digital Marketing Strategist in Los Angeles. I build marketing systems that generate consistent leads and grow brands over time.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#0C0D0B;color:#E8EDE4;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:rgba(138,155,110,.22);border-radius:4px}
+
+/* ─── TOKENS ─── */
+:root{
+  --bg:#0C0D0B;
+  --bg2:#141512;
+  --bg3:#1C1E1A;
+  --glass:rgba(255,255,255,.04);
+  --glass-b:rgba(255,255,255,.08);
+  --glass-h:rgba(255,255,255,.07);
+  --fg:#F4F7F0;
+  --muted:rgba(244,247,240,.58);
+  --faint:rgba(232,237,228,.1);
+  --green:#8A9B6E;
+  --green-d:#5F6F4A;
+  --green-l:#A8BC86;
+  --border:rgba(255,255,255,.07);
+  --shadow:0 24px 64px rgba(0,0,0,.5);
+}
+
+/* ─── ANIMATIONS ─── */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ─── BACKGROUND BLOBS (fixed) ─── */
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:1}
+.blob-1{width:650px;height:650px;background:radial-gradient(circle,rgba(95,111,74,.18),transparent 65%);top:-160px;right:-80px}
+.blob-2{width:500px;height:500px;background:radial-gradient(circle,rgba(50,75,55,.14),transparent 65%);bottom:50px;left:-80px}
+.blob-3{width:380px;height:380px;background:radial-gradient(circle,rgba(70,60,40,.1),transparent 65%);top:45%;left:38%}
+body>*:not(.bg-layer):not(.transform-modal){position:relative;z-index:1}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 56px;
+  background:rgba(12,13,11,.8);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{display:flex;flex-direction:column;line-height:1.05;font-size:.78rem;font-weight:900;letter-spacing:.06em;color:var(--fg);user-select:none}
+.nav-links{display:flex;align-items:center;gap:30px}
+.nav-links a{font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.nav-links a:hover{color:var(--fg)}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  padding:120px 56px 80px;border-bottom:1px solid var(--border);position:relative;
+}
+.hero-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;
+  max-width:1240px;margin:0 auto;width:100%;
+}
+.hero-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
+.hero-inner h1{
+  font-size:clamp(2.8rem,5.5vw,5.2rem);font-weight:900;letter-spacing:-.04em;line-height:.95;
+  color:var(--fg);margin-bottom:22px;
+}
+.hero-desc{font-size:.93rem;color:var(--muted);line-height:1.78;max-width:400px;margin-bottom:36px}
+.hero-btns{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;padding:13px 28px;
+  background:var(--green-d);color:var(--fg);border-radius:100px;
+  font-size:.82rem;font-weight:700;border:none;cursor:pointer;
+  transition:transform .15s,background .18s,box-shadow .18s;
+  box-shadow:0 4px 20px rgba(95,111,74,.25);
+  user-select:none;-webkit-user-select:none;
+}
+.btn-primary:hover{background:#4a5838;transform:translateY(-2px);box-shadow:0 8px 28px rgba(95,111,74,.35)}
+.btn-primary:active{transform:scale(.95) translateY(0);box-shadow:0 2px 10px rgba(95,111,74,.15)}
+.btn-ghost{
+  display:inline-flex;align-items:center;padding:13px 28px;
+  background:var(--glass);border:1px solid var(--glass-b);color:var(--muted);
+  border-radius:100px;font-size:.82rem;font-weight:600;
+  backdrop-filter:blur(12px);transition:border-color .2s,color .2s,transform .15s,background .2s;
+  cursor:pointer;user-select:none;-webkit-user-select:none;
+}
+.btn-ghost:hover{border-color:rgba(138,155,110,.3);color:var(--fg);background:rgba(255,255,255,.07)}
+.btn-ghost:active{transform:scale(.95)}
+.hero-secnum{position:absolute;left:56px;bottom:36px;font-size:.56rem;font-weight:700;letter-spacing:.12em;color:rgba(232,237,228,.12)}
+
+/* Hero gradient card */
+.hero-card{
+  height:420px;border-radius:26px;overflow:hidden;
+  border:1px solid rgba(138,155,110,.14);
+  position:relative;background:#0F100E;
+}
+.hero-card-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 110% 90% at 90% 5%,rgba(95,111,74,.45) 0%,transparent 55%),
+    radial-gradient(ellipse 70% 70% at 10% 85%,rgba(50,75,55,.3) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 60% at 55% 55%,rgba(70,60,40,.18) 0%,transparent 55%);
+}
+.hero-card-shine{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,155,110,.32),transparent);
+}
+.hero-card-inner{
+  position:relative;z-index:1;height:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:28px;
+}
+.hero-card-wm{
+  font-size:5.5rem;font-weight:900;letter-spacing:-.06em;
+  color:rgba(232,237,228,.04);line-height:1;position:absolute;top:18px;left:24px;
+}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap}
+.hero-chip{
+  padding:6px 14px;
+  background:rgba(138,155,110,.1);border:1px solid rgba(138,155,110,.2);
+  border-radius:100px;font-size:.62rem;font-weight:600;color:rgba(138,155,110,.85);
+  letter-spacing:.04em;
+  backdrop-filter:blur(8px);
+}
+
+/* ─── PHILOSOPHY ─── */
+#philosophy{padding:80px 56px;border-bottom:1px solid var(--border)}
+.phi-inner{display:grid;grid-template-columns:180px 1fr;gap:64px;align-items:start;max-width:1240px;margin:0 auto}
+.phi-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);padding-top:4px}
+.phi-items{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.phi-card{
+  background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;
+  padding:26px 22px;
+  backdrop-filter:blur(12px);
+  transition:background .2s,border-color .2s;
+}
+.phi-card:hover{background:var(--glass-h);border-color:rgba(138,155,110,.16)}
+.phi-card h3{font-size:.88rem;font-weight:800;letter-spacing:-.01em;color:var(--fg);margin-bottom:8px}
+.phi-card p{font-size:.82rem;color:var(--muted);line-height:1.72}
+
+/* ─── PROJECTS ─── */
+#projects{border-bottom:1px solid var(--border)}
+.proj-section-hdr{
+  padding:52px 56px 40px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  max-width:none;
+}
+.sec-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
+.sec-count{font-size:.54rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,237,228,.16)}
+
+.proj-section{padding:88px 56px 72px;border-bottom:1px solid var(--border);position:relative}
+.proj-section:last-child{border-bottom:none}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:40px;max-width:1240px;margin-left:auto;margin-right:auto}
+.proj-top-label{font-size:.54rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.proj-top-meta{font-size:.54rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.proj-inner{max-width:1240px;margin:0 auto}
+
+/* Brand cards (glass, clean) */
+.brand-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:460px;margin-bottom:44px}
+.bc{
+  border-radius:18px;overflow:hidden;padding:22px 18px 18px;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  min-height:195px;border:1px solid rgba(255,255,255,.07);position:relative;
+  transition:border-color .25s,transform .3s;
+}
+.bc:hover{transform:translateY(-3px);border-color:rgba(138,155,110,.2)}
+.bc-before{background:radial-gradient(ellipse at 50% 0%,rgba(28,30,25,.95),rgba(12,13,11,.98))}
+.bc-after{background:
+  radial-gradient(ellipse at 70% 10%,rgba(61,90,150,.22),transparent 55%),
+  radial-gradient(ellipse at 20% 85%,rgba(55,75,50,.18),transparent 55%),
+  rgba(13,14,12,.95)}
+.bc-tag{
+  font-size:.5rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:4px;align-self:flex-start;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:rgba(232,237,228,.3);
+}
+.bc-after .bc-tag{background:rgba(138,155,110,.08);border-color:rgba(138,155,110,.18);color:rgba(138,155,110,.7)}
+.bc img{max-width:80%;max-height:105px;object-fit:contain;flex:1}
+.bc-name{font-size:.54rem;font-weight:600;letter-spacing:.05em;color:var(--muted);text-align:center}
+/* HED brand cards */
+.bc-hed-logo{background:linear-gradient(145deg,rgba(10,11,9,.98),rgba(18,20,16,.95));padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.bc-hed-logo img{width:100%;height:100%;object-fit:contain;object-position:center;opacity:.7}
+.bc-hed-stat{
+  background:
+    radial-gradient(ellipse at 60% 30%,rgba(201,169,110,.14),transparent 60%),
+    rgba(12,13,10,.95);
+  justify-content:center;gap:6px;
+}
+.hed-stat-big{font-size:1.8rem;font-weight:900;color:#C9A96E;line-height:1}
+.hed-stat-lbl{font-size:.46rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(201,169,110,.35)}
+.hed-micro-bar{width:80%;height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden;margin-top:8px}
+.hed-micro-fill{height:100%;width:85%;background:linear-gradient(90deg,rgba(201,169,110,.3),#C9A96E);border-radius:2px}
+.hed-from-to{font-size:.5rem;color:rgba(201,169,110,.4);letter-spacing:.04em}
+
+.proj-name{
+  font-size:clamp(1.8rem,3.8vw,3.5rem);font-weight:900;letter-spacing:-.04em;line-height:1;
+  color:var(--fg);margin-bottom:20px;
+}
+.proj-desc{font-size:.91rem;color:var(--muted);line-height:1.8;max-width:660px;margin-bottom:26px}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:40px}
+.tag{
+  padding:5px 13px;border-radius:100px;
+  font-size:.6rem;font-weight:600;letter-spacing:.04em;
+  background:rgba(138,155,110,.07);color:var(--green);
+  border:1px solid rgba(138,155,110,.15);
+}
+.proj-lower{display:grid;grid-template-columns:1fr auto;gap:48px;align-items:start}
+.proj-deliverables h4{font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,237,228,.24);margin-bottom:14px}
+.deliv-list{display:grid;grid-template-columns:1fr 1fr;gap:9px 28px}
+.deliv-item{display:flex;align-items:flex-start;gap:10px;font-size:.83rem;color:rgba(232,237,228,.44);line-height:1.65}
+.deliv-check{
+  width:17px;height:17px;border-radius:4px;flex-shrink:0;
+  background:rgba(138,155,110,.09);border:1px solid rgba(138,155,110,.18);
+  display:flex;align-items:center;justify-content:center;margin-top:2px;font-size:.58rem;color:var(--green);
+}
+.proj-cta-col{display:flex;flex-direction:column;align-items:flex-end;gap:14px;padding-top:24px;flex-shrink:0}
+.proj-disclaimer{font-size:.64rem;color:rgba(232,237,228,.18);line-height:1.5;max-width:180px;text-align:right}
+.proj-secnum{position:absolute;left:56px;bottom:28px;font-size:.56rem;font-weight:700;letter-spacing:.12em;color:rgba(232,237,228,.1)}
+
+/* ─── CTA BUTTON ─── */
+.cta-btn{
+  display:inline-flex;align-items:center;gap:9px;padding:15px 32px;
+  background:var(--fg);color:#0C0D0B;
+  border:none;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:.84rem;font-weight:700;letter-spacing:.01em;
+  cursor:pointer;white-space:nowrap;
+  box-shadow:0 4px 24px rgba(0,0,0,.35),0 0 0 1px rgba(232,237,228,.08);
+  transition:transform .15s,box-shadow .18s,background .18s;
+  user-select:none;-webkit-user-select:none;
+}
+.cta-btn:hover{background:#ffffff;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 1px rgba(232,237,228,.12)}
+.cta-btn:active{transform:scale(.95) translateY(0);box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.cta-btn svg{transition:transform .2s;flex-shrink:0}
+.cta-btn:hover svg{transform:translateX(5px)}
+
+/* ─── CONTENT WORK ─── */
+#content-work{padding:80px 56px;border-bottom:1px solid var(--border)}
+.cw-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.cw-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+.cw-title{font-size:clamp(1.8rem,3.5vw,3rem);font-weight:900;letter-spacing:-.04em;color:var(--fg);line-height:1;margin-bottom:18px}
+.cw-desc{font-size:.9rem;color:var(--muted);line-height:1.78;margin-bottom:32px}
+.cw-types{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:36px}
+.cw-card{
+  background:var(--glass);border:1px solid var(--glass-b);border-radius:22px;
+  padding:32px 28px;backdrop-filter:blur(12px);position:relative;overflow:hidden;
+}
+.cw-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,155,110,.22),transparent);
+}
+.cw-drive-icon{
+  width:48px;height:48px;border-radius:14px;margin-bottom:20px;
+  background:linear-gradient(135deg,rgba(138,155,110,.15),rgba(95,111,74,.08));
+  border:1px solid rgba(138,155,110,.18);
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+}
+.cw-card-title{font-size:1rem;font-weight:800;color:var(--fg);margin-bottom:8px;letter-spacing:-.02em}
+.cw-card-desc{font-size:.8rem;color:var(--muted);line-height:1.65;margin-bottom:24px}
+.cw-card-meta{display:flex;gap:18px;margin-bottom:24px}
+.cw-meta-item{display:flex;flex-direction:column;gap:3px}
+.cw-meta-num{font-size:1.1rem;font-weight:800;color:var(--fg)}
+.cw-meta-lbl{font-size:.5rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(232,237,228,.28)}
+.cw-drive-btn{
+  display:inline-flex;align-items:center;gap:10px;width:100%;
+  padding:13px 20px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(138,155,110,.12),rgba(95,111,74,.06));
+  border:1px solid rgba(138,155,110,.22);
+  color:var(--fg);font-size:.82rem;font-weight:700;
+  text-decoration:none;transition:background .2s,border-color .2s,transform .15s;
+  cursor:pointer;
+}
+.cw-drive-btn:hover{background:linear-gradient(135deg,rgba(138,155,110,.2),rgba(95,111,74,.12));border-color:rgba(138,155,110,.4);transform:translateY(-1px)}
+.cw-drive-btn:active{transform:scale(.97)}
+.cw-drive-btn svg{flex-shrink:0;opacity:.7}
+.cw-drive-btn span{flex:1}
+.cw-drive-arrow{margin-left:auto;opacity:.5}
+
+@media(max-width:768px){
+  #content-work{padding-left:24px;padding-right:24px}
+  .cw-inner{grid-template-columns:1fr;gap:36px}
+}
+
+/* ─── SKILLS ─── */
+#skills{padding:80px 56px;border-bottom:1px solid var(--border)}
+.skills-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:36px}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:1240px}
+.skill-card{
+  background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;
+  padding:28px 24px;
+  backdrop-filter:blur(12px);
+  transition:background .2s,border-color .2s,transform .25s;
+  position:relative;overflow:hidden;
+}
+.skill-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(138,155,110,.2),transparent);
+}
+.skill-card:hover{background:var(--glass-h);border-color:rgba(138,155,110,.18);transform:translateY(-2px)}
+.skill-icon{font-size:.9rem;margin-bottom:14px;color:var(--green);opacity:.7}
+.skill-card h3{font-size:.88rem;font-weight:800;letter-spacing:-.01em;color:var(--fg);margin-bottom:7px}
+.skill-card p{font-size:.78rem;color:var(--muted);line-height:1.68}
+
+/* ─── ABOUT ─── */
+#about{
+  padding:88px 56px;border-bottom:1px solid var(--border);
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+  max-width:none;
+}
+.about-inner{max-width:480px}
+.about-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+.about-name{font-size:clamp(2.2rem,4vw,3.8rem);font-weight:900;letter-spacing:-.05em;color:var(--fg);line-height:.93;margin-bottom:24px}
+.about-text{font-size:.9rem;color:var(--muted);line-height:1.8;margin-bottom:18px}
+.about-facts{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--glass);backdrop-filter:blur(12px)}
+.fact-row{display:flex;justify-content:space-between;align-items:baseline;padding:14px 20px;border-bottom:1px solid var(--border)}
+.fact-row:last-child{border-bottom:none}
+.fact-label{font-size:.56rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(232,237,228,.25)}
+.fact-val{font-size:.82rem;font-weight:600;color:var(--fg)}
+
+/* ─── CONTACT ─── */
+#contact{padding:88px 56px;border-bottom:1px solid var(--border);position:relative}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;max-width:1240px;margin:0 auto}
+.contact-big{font-size:clamp(2rem,4.5vw,4rem);font-weight:900;letter-spacing:-.05em;color:var(--fg);line-height:.93;margin-bottom:22px}
+.contact-label{font-size:.54rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--green);margin-bottom:20px}
+.contact-sub{font-size:.9rem;color:var(--muted);line-height:1.78;margin-bottom:32px;max-width:360px}
+.contact-detail{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--glass);backdrop-filter:blur(12px)}
+.c-row{display:flex;flex-direction:column;gap:4px;padding:14px 20px;border-bottom:1px solid var(--border)}
+.c-row:last-child{border-bottom:none}
+.c-label{font-size:.52rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(232,237,228,.24)}
+.c-val{font-size:.88rem;font-weight:600;color:var(--fg)}
+.c-val a:hover{color:var(--green)}
+.form-big{font-size:clamp(1.6rem,3vw,2.6rem);font-weight:900;letter-spacing:-.04em;color:var(--fg);line-height:.93;margin-bottom:28px}
+.contact-form{
+  background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;
+  padding:28px;backdrop-filter:blur(12px);
+  display:flex;flex-direction:column;gap:0;
+}
+.form-field{
+  background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,.06);
+  padding:14px 0;font-family:'Inter',sans-serif;font-size:.88rem;color:var(--fg);
+  width:100%;outline:none;transition:border-color .2s;
+}
+.form-field::placeholder{color:rgba(232,237,228,.18)}
+.form-field:focus{border-color:rgba(138,155,110,.3)}
+.form-textarea{resize:vertical;min-height:72px;padding-top:14px}
+.form-submit{
+  margin-top:22px;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;background:var(--green-d);color:var(--fg);
+  border:none;border-radius:100px;
+  font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;
+  cursor:pointer;transition:transform .15s,background .18s,box-shadow .18s;
+  box-shadow:0 4px 18px rgba(95,111,74,.2);
+  user-select:none;-webkit-user-select:none;
+}
+.form-submit:hover{background:#4a5838;transform:translateY(-2px);box-shadow:0 8px 26px rgba(95,111,74,.3)}
+.form-submit:active{transform:scale(.95);box-shadow:none}
+.form-success{
+  display:none;flex-direction:column;align-items:flex-start;gap:10px;
+  padding:24px;background:rgba(138,155,110,.07);border:1px solid rgba(138,155,110,.18);
+  border-radius:14px;margin-top:22px;
+}
+.form-success.show{display:flex}
+.form-success-icon{font-size:1.1rem;color:var(--green)}
+.form-success p{font-size:.85rem;color:var(--muted);line-height:1.6}
+.form-success strong{color:var(--fg)}
+.proj-secnum{position:absolute;left:56px;bottom:28px;font-size:.56rem;font-weight:700;letter-spacing:.12em;color:rgba(232,237,228,.1)}
+
+/* ─── FOOTER ─── */
+footer{padding:72px 56px 48px;text-align:center;border-top:1px solid var(--border)}
+.footer-big{
+  font-size:clamp(2rem,7vw,7rem);font-weight:900;letter-spacing:-.055em;
+  background:linear-gradient(135deg,rgba(138,155,110,.12),rgba(232,237,228,.04),rgba(95,111,74,.08));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:32px;user-select:none;
+}
+.footer-note{font-size:.54rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(232,237,228,.2);margin-bottom:8px}
+.footer-copy{display:flex;align-items:center;justify-content:center;gap:20px;font-size:.68rem;color:rgba(232,237,228,.18)}
+.footer-copy a:hover{color:var(--green)}
+
+/* ─── HED MODAL CSS ─── */
+.hd-stats-row{display:flex;gap:0}
+.hd-stat{flex:1;text-align:center;padding:6px 0;border-right:1px solid rgba(255,255,255,.05)}
+.hd-stat:last-child{border-right:none}
+.hd-stat-num{font-size:.95rem;font-weight:800;color:rgba(232,237,228,.7);line-height:1.2}
+.hd-stat.accent .hd-stat-num{color:#C9A96E;font-size:1.05rem}
+.hd-stat-label{font-size:.58rem;color:rgba(232,237,228,.3);letter-spacing:.04em;margin-top:1px}
+.hd-growth{width:100%}
+.hd-growth-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.hd-growth-from{font-size:.62rem;color:rgba(232,237,228,.3)}
+.hd-growth-to{font-size:.68rem;font-weight:700;color:#C9A96E}
+.hd-track{height:3px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.hd-fill{height:100%;width:0;background:linear-gradient(90deg,rgba(201,169,110,.3),#C9A96E);border-radius:3px;transition:width 1.8s .4s cubic-bezier(.4,0,.2,1)}
+.hd-formats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;width:100%}
+.hd-fmt{background:rgba(255,255,255,.025);border:1px solid rgba(201,169,110,.08);border-radius:10px;padding:13px 8px;text-align:center;transition:border-color .25s,background .25s}
+.hd-fmt:hover{border-color:rgba(201,169,110,.28);background:rgba(201,169,110,.04)}
+.hd-fmt-icon{font-size:1rem;color:rgba(201,169,110,.55);margin-bottom:7px;font-weight:800;line-height:1}
+.hd-fmt-name{font-size:.65rem;font-weight:700;color:rgba(232,237,228,.7);margin-bottom:3px;letter-spacing:.02em}
+.hd-fmt-desc{font-size:.58rem;color:rgba(232,237,228,.28);line-height:1.45}
+
+/* ─── TRANSFORM MODALS ─── */
+.transform-modal{
+  position:fixed;inset:0;z-index:600;
+  background:rgba(6,7,5,.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity .35s;
+}
+.transform-modal.is-open{opacity:1;pointer-events:auto}
+.tm-stage{
+  position:relative;border-radius:22px;overflow:hidden;width:min(700px,100%);
+  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.06);
+  transform:scale(.94) translateY(18px);transition:transform .5s cubic-bezier(.22,1,.36,1);
+}
+.transform-modal.is-open .tm-stage{transform:none}
+.tm-close{
+  position:absolute;top:14px;right:14px;z-index:20;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:background .2s;
+}
+.tm-close:hover{background:rgba(255,255,255,.16)}
+.tm-panels{display:grid;grid-template-columns:1fr 1fr;min-height:320px;position:relative}
+.tm-panel{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 24px 28px;gap:14px;
+  opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s cubic-bezier(.22,1,.36,1);
+}
+.tm-panel.vis{opacity:1;transform:none}
+.tm-panel-before{background:#0D0E10}
+.tm-panel-after{background:#3D5A96}
+.tm-divider{position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.1)}
+.tm-pill{font-size:.52rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:3px}
+.tm-pill-b{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.38)}
+.tm-pill-a{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.85)}
+.tm-logo{max-width:100%;max-height:148px;object-fit:contain}
+.tm-name{font-size:.6rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;text-align:center}
+.tm-name-b{color:rgba(255,255,255,.3)}.tm-name-a{color:rgba(255,255,255,.72)}
+.tm-sub{font-size:.5rem;letter-spacing:.05em;text-align:center;margin-top:3px}
+.tm-sub-b{color:rgba(255,255,255,.16)}.tm-sub-a{color:rgba(255,255,255,.38)}
+.tm-strip{
+  background:#080A0C;border-top:1px solid rgba(255,255,255,.05);
+  display:grid;grid-template-columns:repeat(3,1fr);
+  opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s cubic-bezier(.22,1,.36,1);
+}
+.tm-strip.vis{opacity:1;transform:none}
+.tm-metric{padding:14px 10px;text-align:center;border-right:1px solid rgba(255,255,255,.05)}
+.tm-metric:last-child{border-right:none}
+.tm-metric-val{font-size:.78rem;font-weight:800;color:#C9A96E;line-height:1.2}
+.tm-metric-lbl{font-size:.46rem;color:rgba(255,255,255,.24);letter-spacing:.09em;text-transform:uppercase;margin-top:3px}
+.tm-stage-hed{background:linear-gradient(145deg,#0D0F14,#141820 60%,#0A0C10);padding:40px 36px 32px}
+.tm-hed-header{text-align:center;margin-bottom:24px}
+.tm-hed-eyebrow{font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(201,169,110,.55)}
+.tm-hed-title{font-size:1.4rem;font-weight:800;color:#F2F4EE;letter-spacing:-.02em;margin:6px 0 4px}
+.tm-hed-sub{font-size:.7rem;color:rgba(232,237,228,.38)}
+.tm-hed-card{opacity:0;transform:translateY(16px);transition:opacity .6s .2s,transform .6s .2s cubic-bezier(.22,1,.36,1)}
+.tm-hed-card.vis{opacity:1;transform:none}
+.tm-hed-formats{opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s cubic-bezier(.22,1,.36,1);margin-top:18px}
+.tm-hed-formats.vis{opacity:1;transform:none}
+.tm-modal-stats{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:18px 0;margin-bottom:16px}
+.tm-modal-stats .hd-stat-num{font-size:1.3rem}
+.tm-modal-stats .hd-stat.accent .hd-stat-num{font-size:1.5rem}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{height:280px}
+  .phi-items{grid-template-columns:1fr 1fr}
+  .deliv-list{grid-template-columns:1fr}
+  #about{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  #hero{padding:88px 24px 60px}
+  #philosophy,#skills,#about,#contact,footer{padding-left:24px;padding-right:24px}
+  .proj-section,
+  .proj-section-hdr{padding-left:24px;padding-right:24px}
+  .phi-inner{grid-template-columns:1fr}
+  .phi-items{grid-template-columns:1fr}
+  #about{padding:60px 24px}
+  .proj-lower{grid-template-columns:1fr}
+  .proj-cta-col{align-items:flex-start;padding-top:0}
+  .skills-grid{grid-template-columns:1fr}
+  .hero-secnum,.proj-secnum{left:24px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── BACKGROUND ─── -->
+<div class="bg-layer" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-logo">
+    <span>JE</span>
+    <span>FF</span>
+  </div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#content-work">Content</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- .01 HERO ─── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow reveal">Marketing Strategist · Los Angeles</div>
+      <h1 class="reveal d1">Jefferson<br>Garcia</h1>
+      <p class="hero-desc reveal d2">I build marketing systems for local businesses that generate consistent leads and grow brands over time. Meta Ads, content strategy, and brand identity — all connected.</p>
+      <div class="hero-btns reveal d3">
+        <a href="#projects" class="btn-primary">View Work</a>
+        <a href="#contact" class="btn-ghost">Get in touch</a>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="hero-card">
+        <div class="hero-card-bg"></div>
+        <div class="hero-card-shine"></div>
+        <div class="hero-card-inner">
+          <div class="hero-card-wm">JG</div>
+          <div class="hero-chips">
+            <span class="hero-chip">Meta Ads</span>
+            <span class="hero-chip">Brand Identity</span>
+            <span class="hero-chip">Content Systems</span>
+            <span class="hero-chip">Growth Strategy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-secnum">.01</div>
+</section>
+
+<!-- APPROACH ─── -->
+<section id="philosophy">
+  <div class="phi-inner reveal">
+    <div class="phi-label">Approach</div>
+    <div class="phi-items">
+      <div class="phi-card">
+        <h3>Systems, not tactics</h3>
+        <p>I build marketing infrastructure designed to compound over time. Each touchpoint is intentional, measurable, and connected to the others.</p>
+      </div>
+      <div class="phi-card">
+        <h3>Audience-first</h3>
+        <p>The right message to the wrong audience is wasted spend. I start by defining who matters, then build everything around reaching them precisely.</p>
+      </div>
+      <div class="phi-card">
+        <h3>Results over aesthetics</h3>
+        <p>Beautiful work that doesn't convert is decoration. I care about how things look because it affects how they perform.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROJECTS ─── -->
+<section id="projects">
+  <div class="proj-section-hdr reveal">
+    <div class="sec-label">Selected Work</div>
+    <div class="sec-count">02 — 03</div>
+  </div>
+
+  <!-- .02 TOROGOZ ─── -->
+  <div class="proj-section">
+    <div class="proj-top reveal">
+      <div class="proj-top-label">Project · Rebranding & Reputation</div>
+      <div class="proj-top-meta">Charlotte, NC · 2025</div>
+    </div>
+    <div class="proj-inner">
+      <div class="brand-cards reveal d1">
+        <div class="bc bc-before">
+          <div class="bc-tag">Before</div>
+          <img src="assets/TOROGOZ-Painting-Logo.png" alt="Torogoz Painting">
+          <div class="bc-name">Torogoz Painting</div>
+        </div>
+        <div class="bc bc-after">
+          <div class="bc-tag">After</div>
+          <img src="assets/NEW2-05.png" alt="Torogoz Home Remodeling">
+          <div class="bc-name">Torogoz Home Remodeling</div>
+        </div>
+      </div>
+      <h2 class="proj-name reveal">TOROGOZ HOME REMODELING</h2>
+      <p class="proj-desc reveal d1">A full rebranding project for a home services contractor in Charlotte, NC. The business had outgrown its original name. I led the transition from a single-service identity to a broader, more competitive position in the home remodeling market, including a complete brand refresh and a reputation system that tripled their Google reviews.</p>
+      <div class="proj-tags reveal d2">
+        <span class="tag">Rebranding</span>
+        <span class="tag">Naming Strategy</span>
+        <span class="tag">Google Reviews System</span>
+        <span class="tag">Reputation Management</span>
+        <span class="tag">Brand Identity</span>
+        <span class="tag">Design Team Management</span>
+      </div>
+      <div class="proj-lower reveal d3">
+        <div class="proj-deliverables">
+          <h4>What I did</h4>
+          <div class="deliv-list">
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Led the company rename from <em>Torogoz Painting</em> to <em>Torogoz Home Remodeling</em>, opening access to larger contracts across multiple trades</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Managed the design team for the full brand identity refresh: new visual system, messaging, and positioning</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Designed and implemented a Google Reviews acquisition system that grew their count from under 30 to nearly 100 authentic 5-star reviews</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Improved local search visibility and inbound referral flow through consistent reputation management</span></div>
+          </div>
+        </div>
+        <div class="proj-cta-col">
+          <button class="cta-btn" data-modal="torogoz">
+            View Transformation
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="proj-disclaimer">🔒 Specific metrics confidential under client agreement.</div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-secnum">.02</div>
+  </div>
+
+  <!-- .03 HIGH END DETAIL ─── -->
+  <div class="proj-section">
+    <div class="proj-top reveal">
+      <div class="proj-top-label">Project · Social Media & Organic Growth</div>
+      <div class="proj-top-meta">Los Angeles, CA · 2024</div>
+    </div>
+    <div class="proj-inner">
+      <div class="brand-cards reveal d1">
+        <div class="bc bc-hed-logo">
+          <img src="assets/highenddetail-logo.jpg" alt="High End Detail">
+        </div>
+        <div class="bc bc-hed-stat">
+          <div class="hed-stat-big">2,227</div>
+          <div class="hed-stat-lbl">followers</div>
+          <div class="hed-micro-bar"><div class="hed-micro-fill"></div></div>
+          <div class="hed-from-to">&lt; 1,000 → 2,227</div>
+        </div>
+      </div>
+      <h2 class="proj-name reveal">HIGH END DETAIL LA</h2>
+      <p class="proj-desc reveal d1">A mobile car detailing business in Los Angeles specializing in paint correction, ceramic coating, and deep detail services. I took over the full Instagram strategy when the account had under 1,000 followers. Through consistent, niche-targeted content, we grew it to 2,227 followers by reaching exactly the right audience.</p>
+      <div class="proj-tags reveal d2">
+        <span class="tag">Instagram Growth</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Before & After Reels</span>
+        <span class="tag">Niche Targeting</span>
+        <span class="tag">Organic Reach</span>
+        <span class="tag">Lead Generation</span>
+      </div>
+      <div class="proj-lower reveal d3">
+        <div class="proj-deliverables">
+          <h4>What I did</h4>
+          <div class="deliv-list">
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Grew the Instagram account from under 1,000 to <strong>2,227 followers</strong> by targeting the right niche, not just chasing volume</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Built and executed a content system: before/after transformations, in-process videos, and lifestyle culture content</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Maintained consistent posting cadence with high organic reach without relying on paid spend</span></div>
+            <div class="deliv-item"><div class="deliv-check">✓</div><span>Converted social reach into inbound inquiries, managing the full pipeline from content to DM to booked client</span></div>
+          </div>
+        </div>
+        <div class="proj-cta-col">
+          <button class="cta-btn" data-modal="hed">
+            View Growth Story
+            <svg viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="proj-disclaimer">🔒 Revenue metrics confidential under client agreement.</div>
+        </div>
+      </div>
+    </div>
+    <div class="proj-secnum">.03</div>
+  </div>
+</section>
+
+<!-- ─── CONTENT WORK ─── -->
+<section id="content-work">
+  <div class="cw-inner">
+    <div class="reveal">
+      <div class="cw-label">Content Work</div>
+      <h2 class="cw-title">Content I've created<br>for other brands</h2>
+      <p class="cw-desc">Beyond strategy, I produce content directly. Reels, before/afters, lifestyle posts, and short-form video — created for clients across multiple industries. Browse the full library below.</p>
+      <div class="cw-types">
+        <span class="tag">Reels & Short Video</span>
+        <span class="tag">Before / After</span>
+        <span class="tag">Lifestyle Content</span>
+        <span class="tag">Brand Storytelling</span>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="cw-card">
+        <div class="cw-drive-icon">◈</div>
+        <div class="cw-card-title">Content Portfolio</div>
+        <div class="cw-card-desc">A curated collection of video and photo content produced for real clients. Organized by brand and format — open in Google Drive to browse everything.</div>
+        <div class="cw-card-meta">
+          <div class="cw-meta-item"><div class="cw-meta-num">Multi</div><div class="cw-meta-lbl">Brands</div></div>
+          <div class="cw-meta-item"><div class="cw-meta-num">Real</div><div class="cw-meta-lbl">Client Work</div></div>
+          <div class="cw-meta-item"><div class="cw-meta-num">Drive</div><div class="cw-meta-lbl">Hosted</div></div>
+        </div>
+        <a class="cw-drive-btn" href="https://drive.google.com/drive/folders/1-4Fbd6SY8WDoImXDdC8vy1QjUhSwH9Th?usp=share_link" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 19h20L12 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M2 19l8-7M22 19l-8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span>Open Content Library</span>
+          <svg class="cw-drive-arrow" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="skills-label reveal">Capabilities</div>
+  <div class="skills-grid">
+    <div class="skill-card reveal"><div class="skill-icon">◈</div><h3>Paid Advertising</h3><p>Meta Ads campaign strategy, audience segmentation, creative testing, and full-funnel optimization. ROI-focused from day one.</p></div>
+    <div class="skill-card reveal d1"><div class="skill-icon">◈</div><h3>Content & Social</h3><p>Content systems built for organic growth. Format strategy, posting cadence, niche targeting, and community-building that converts.</p></div>
+    <div class="skill-card reveal d2"><div class="skill-icon">◈</div><h3>Brand & Web</h3><p>Brand identity, UX/UI web design, and messaging architecture. From positioning to the page that closes the deal.</p></div>
+    <div class="skill-card reveal d3"><div class="skill-icon">◈</div><h3>Reputation Systems</h3><p>Review acquisition frameworks, local SEO, and reputation management for service businesses that depend on trust signals.</p></div>
+    <div class="skill-card reveal d4"><div class="skill-icon">◈</div><h3>Email & Automation</h3><p>Outreach sequences, follow-up automation, and CRM pipeline management. Systems that work while you sleep.</p></div>
+    <div class="skill-card reveal d1"><div class="skill-icon">◈</div><h3>Growth Strategy</h3><p>Market analysis, competitive positioning, and go-to-market planning for businesses ready to scale beyond referrals.</p></div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="about-inner reveal">
+    <div class="about-label">About</div>
+    <div class="about-name">Jefferson<br>Garcia</div>
+    <p class="about-text">I'm a digital marketing strategist based in Los Angeles. I specialize in building the marketing systems that let businesses grow without guessing. I've worked with home service contractors, auto detailers, and local service businesses across the US, helping them go from invisible to consistent lead flow.</p>
+    <p class="about-text">I speak English and Spanish natively, which lets me work across markets, run bilingual campaigns, and connect with Hispanic communities without the usual translation layer.</p>
+  </div>
+  <div class="reveal d2">
+    <div class="about-facts">
+      <div class="fact-row"><span class="fact-label">Based In</span><span class="fact-val">Los Angeles, CA</span></div>
+      <div class="fact-row"><span class="fact-label">Specialization</span><span class="fact-val">Meta Ads · Content Systems · Branding</span></div>
+      <div class="fact-row"><span class="fact-label">Languages</span><span class="fact-val">English & Spanish (Native)</span></div>
+      <div class="fact-row"><span class="fact-label">Focus</span><span class="fact-val">Local Service Businesses · LA Market</span></div>
+      <div class="fact-row"><span class="fact-label">Available</span><span class="fact-val">New clients — reach out</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="contact-label">Contact</div>
+      <div class="contact-big">Let's work<br>together.</div>
+      <p class="contact-sub">If you're a local business in LA or anywhere in the US looking for marketing that actually moves numbers, I want to hear about your situation.</p>
+      <div class="contact-detail">
+        <div class="c-row"><span class="c-label">Email</span><span class="c-val"><a href="mailto:jefferson.garcia.works@gmail.com">jefferson.garcia.works@gmail.com</a></span></div>
+        <div class="c-row"><span class="c-label">Location</span><span class="c-val">Los Angeles, CA</span></div>
+        <div class="c-row"><span class="c-label">Markets</span><span class="c-val">United States · Latin America</span></div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div class="form-big">Send a<br>message.</div>
+      <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+        <input class="form-field" type="text" placeholder="Your name" required>
+        <input class="form-field" type="email" placeholder="Your email" required>
+        <textarea class="form-field form-textarea" placeholder="Tell me about your project" required></textarea>
+        <button class="form-submit" type="submit">Send Message <svg viewBox="0 0 16 16" width="13" height="13" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </form>
+      <div class="form-success" id="form-success">
+        <div class="form-success-icon">✓</div>
+        <p><strong>Message sent!</strong><br>I'll get back to you within 24 hours at <a href="mailto:jefferson.garcia.works@gmail.com" style="color:var(--green)">jefferson.garcia.works@gmail.com</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="proj-secnum">.04</div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-big">THANKS FOR VISITING</div>
+  <div class="footer-note">Jefferson Garcia · Marketing Strategist · Los Angeles</div>
+  <div class="footer-copy">
+    <span>© 2026 Jefferson Garcia</span>
+    <a href="mailto:jefferson.garcia.works@gmail.com">jefferson.garcia.works@gmail.com</a>
+  </div>
+</footer>
+
+<!-- ─── TOROGOZ MODAL ─── -->
+<div id="modal-torogoz" class="transform-modal" data-modal-bg="torogoz">
+  <div class="tm-stage">
+    <button class="tm-close" data-modal-close="torogoz"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div class="tm-panels">
+      <div class="tm-panel tm-panel-before" id="tg-panel-b">
+        <span class="tm-pill tm-pill-b">Before · 2021</span>
+        <img src="assets/TOROGOZ-Painting-Logo.png" class="tm-logo" alt="Torogoz Painting">
+        <div><div class="tm-name tm-name-b">Torogoz Painting</div><div class="tm-sub tm-sub-b">Single-service contractor</div></div>
+      </div>
+      <div class="tm-divider"></div>
+      <div class="tm-panel tm-panel-after" id="tg-panel-a">
+        <span class="tm-pill tm-pill-a">After · 2025</span>
+        <img src="assets/NEW2-05.png" class="tm-logo" alt="Torogoz Home Remodeling">
+        <div><div class="tm-name tm-name-a">Torogoz Home Remodeling</div><div class="tm-sub tm-sub-a">Multi-trade contractor</div></div>
+      </div>
+    </div>
+    <div class="tm-strip" id="tg-strip">
+      <div class="tm-metric"><div class="tm-metric-val">&lt;30 → 97</div><div class="tm-metric-lbl">Google Reviews</div></div>
+      <div class="tm-metric"><div class="tm-metric-val">3×</div><div class="tm-metric-lbl">Review Growth</div></div>
+      <div class="tm-metric"><div class="tm-metric-val">Full</div><div class="tm-metric-lbl">Brand Refresh</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── HED MODAL ─── -->
+<div id="modal-hed" class="transform-modal" data-modal-bg="hed">
+  <div class="tm-stage tm-stage-hed">
+    <button class="tm-close" data-modal-close="hed"><svg viewBox="0 0 14 14" width="12" height="12" fill="none"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    <div class="tm-hed-header">
+      <div class="tm-hed-eyebrow">Growth Story</div>
+      <div class="tm-hed-title">@_highenddetail_</div>
+      <div class="tm-hed-sub">Premium Mobile Detailing · Los Angeles, CA</div>
+    </div>
+    <div class="tm-hed-card" id="hed-modal-card">
+      <div class="tm-modal-stats hd-stats-row">
+        <div class="hd-stat"><div class="hd-stat-num">15</div><div class="hd-stat-label">posts</div></div>
+        <div class="hd-stat accent"><div class="hd-stat-num" id="modal-follower-count">0</div><div class="hd-stat-label">followers</div></div>
+        <div class="hd-stat"><div class="hd-stat-num">51</div><div class="hd-stat-label">following</div></div>
+      </div>
+      <div class="hd-growth" style="margin-top:16px">
+        <div class="hd-growth-row"><span class="hd-growth-from">Started at &lt;1,000</span><span class="hd-growth-to">2,227 followers</span></div>
+        <div class="hd-track"><div class="hd-fill" id="modal-hd-fill"></div></div>
+      </div>
+    </div>
+    <div class="tm-hed-formats hd-formats" id="hed-modal-formats">
+      <div class="hd-fmt"><div class="hd-fmt-icon">↔</div><div class="hd-fmt-name">Before / After</div><div class="hd-fmt-desc">Transformation reels that drive shares</div></div>
+      <div class="hd-fmt"><div class="hd-fmt-icon">▶</div><div class="hd-fmt-name">In-Process</div><div class="hd-fmt-desc">Build trust by showing the work</div></div>
+      <div class="hd-fmt"><div class="hd-fmt-icon">✦</div><div class="hd-fmt-name">Lifestyle</div><div class="hd-fmt-desc">Culture content for community</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+
+  // ── Scroll reveal ──
+  const obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+  // ── Modal helpers ──
+  function openModal(id) {
+    var modal = document.getElementById('modal-' + id);
+    if (!modal) return;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    if (id === 'torogoz') {
+      setTimeout(function() { var el = document.getElementById('tg-panel-b'); if(el) el.classList.add('vis'); }, 180);
+      setTimeout(function() { var el = document.getElementById('tg-panel-a'); if(el) el.classList.add('vis'); }, 420);
+      setTimeout(function() { var el = document.getElementById('tg-strip');   if(el) el.classList.add('vis'); }, 780);
+    }
+    if (id === 'hed') {
+      var card    = document.getElementById('hed-modal-card');
+      var formats = document.getElementById('hed-modal-formats');
+      var counter = document.getElementById('modal-follower-count');
+      var fill    = document.getElementById('modal-hd-fill');
+      setTimeout(function() {
+        if (card) card.classList.add('vis');
+        if (counter) {
+          var target = 2227, duration = 1800, start = Date.now();
+          (function tick() {
+            var p = Math.min((Date.now() - start) / duration, 1);
+            counter.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target).toLocaleString();
+            if (p < 1) requestAnimationFrame(tick); else counter.textContent = '2,227';
+          })();
+        }
+        if (fill) setTimeout(function() { fill.style.width = '85%'; }, 350);
+      }, 250);
+      setTimeout(function() { if (formats) formats.classList.add('vis'); }, 700);
+    }
+  }
+
+  function closeModal(id) {
+    var modal = document.getElementById('modal-' + id);
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(function() {
+      if (id === 'torogoz') {
+        ['tg-panel-b','tg-panel-a','tg-strip'].forEach(function(i) {
+          var el = document.getElementById(i); if (el) el.classList.remove('vis');
+        });
+      }
+      if (id === 'hed') {
+        ['hed-modal-card','hed-modal-formats'].forEach(function(i) {
+          var el = document.getElementById(i); if (el) el.classList.remove('vis');
+        });
+        var counter = document.getElementById('modal-follower-count');
+        var fill    = document.getElementById('modal-hd-fill');
+        if (counter) counter.textContent = '0';
+        if (fill)    fill.style.width = '0';
+      }
+    }, 380);
+  }
+
+  // ── Wire up open buttons ──
+  document.querySelectorAll('[data-modal]').forEach(function(btn) {
+    btn.addEventListener('click', function() { openModal(btn.getAttribute('data-modal')); });
+  });
+
+  // ── Wire up close buttons ──
+  document.querySelectorAll('[data-modal-close]').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      closeModal(btn.getAttribute('data-modal-close'));
+    });
+  });
+
+  // ── Click backdrop to close ──
+  document.querySelectorAll('[data-modal-bg]').forEach(function(overlay) {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) closeModal(overlay.getAttribute('data-modal-bg'));
+    });
+  });
+
+  // ── Escape key ──
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      ['torogoz','hed'].forEach(function(id) {
+        var m = document.getElementById('modal-' + id);
+        if (m && m.classList.contains('is-open')) closeModal(id);
+      });
+    }
+  });
+
+  // ── Contact form ──
+  var form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = form.querySelector('.form-submit');
+      var success = document.getElementById('form-success');
+      if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
+      setTimeout(function() {
+        form.style.display = 'none';
+        if (success) success.classList.add('show');
+      }, 800);
+    });
+  }
+
+})();
+</script>
+</body>
+</html>
